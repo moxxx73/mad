@@ -4,3 +4,11 @@ this project is very early in development and you may ask why am i doing it?
 Because i read "Build your own fucking birdfeeder" from "POC||GTFO" and 
 finally decided to finally persue building my own tools so yh. 
 (also cannot recommend the book enough)
+
+# Building
+
+for now u can just build madd with:
+  gcc mad.c util.c pool.c cli.c madELF.c cmds.c -Wall -Wextra -o ../mad
+  
+obviously i'll need to provide a Makefile in the future but im not well versed
+in writing one so that'll be something else to do... i'll probably do that next
