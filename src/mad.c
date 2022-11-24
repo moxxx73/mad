@@ -33,7 +33,7 @@ void mad_main(void){
 		cmd = getcmd();
 		if(cmd){
 			import_ptr(cmd, (void(*)(void *))&freecmd);
-			if(cmd->length > 1){
+			if(cmd->length >= 1){
 				pcmd = parse_cmd(cmd);
 				if(pcmd){
 					run_cmd(pcmd);

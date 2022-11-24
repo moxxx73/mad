@@ -67,6 +67,12 @@ typedef struct{
 
 char *str_abi(char abi);
 
+char *str_etype(unsigned short e_type);
+
+char *str_eidata(char ei_data);
+
+char *str_emachine(unsigned short e_machine);
+
 char *str_ptype(uint32_t type);
 
 char *str_shtype(uint32_t sh_type);

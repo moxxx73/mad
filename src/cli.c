@@ -3,6 +3,7 @@
 #include <unistd.h>
 #include <errno.h>
 #include <assert.h>
+#include "util.h"
 
 struct termios term_save;
 char restore_set = 0;
@@ -179,7 +180,14 @@ PCMD *parse_cmd(CMD *cmd){
 		fprintf(stderr, "malloc(): %s\n", strerror(errno));
 		return NULL;
 	}
-
+	/*
+	if(!has_char(cmd->buf, 0x20)){
+		ret->cmd = cmd->buf;
+		ret->cmdlength = cmd->length;
+		ret->args = NULL;
+		return ret;
+	}
+	*/
 	argp = parse_args(cmd->buf);
 	if(argp){
 		argp = argp->fw;
@@ -204,25 +212,21 @@ PCMD *parse_cmd(CMD *cmd){
 int run_cmd(PCMD *pcmd){
 	if(pcmd){
 		if(pcmd->cmd && pcmd->cmdlength){
-			switch(pcmd->cmdlength){
-				case 4:
-					if(strncmp(pcmd->cmd, "quit", 4) == 0){
-						exit(0);
-					}
-					if(strncmp(pcmd->cmd, "help", 4) == 0){
-						mad_help();
-						return 0;
-					}
+			switch(pcmd->cmd[0]){
+				case 'e':
+					elf_cmd_handler(pcmd);
 					break;
-				case 3:
-					if(strncmp(pcmd->cmd, "elf", 4) == 0){
-						elf_cmd_handler(pcmd);
-						return 0;
-					}
+				case '?':
+					mad_help();
+					break;
+				case 'q':
+					exit(0);
+				default:
+					printf("\"%c\" is not a valid command\n", *((char *)pcmd->cmd));
+					printf("Use \"?\" for help\n");
+					break;
 			}
 		}
 	}
-//NOT_IMPLEMENTED:
-	fprintf(stderr, "\"%s\" is not a valid command\n", pcmd->cmd);
-	return -1;
+	return 0;
 }

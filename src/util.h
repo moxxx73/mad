@@ -6,4 +6,6 @@
 
 int isfile(char *name_ptr);
 
+int has_char(char *str, char b);
+
 #endif

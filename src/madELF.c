@@ -19,6 +19,54 @@ char *str_abi(char abi){
 	return NULL;
 }
 
+char *str_etype(unsigned short e_type){
+	switch(e_type){
+		case ET_REL:
+			return "Relocatable";
+		case ET_EXEC:
+			return "Executable";
+		case ET_DYN:
+			return "Shared Object";
+		case ET_CORE:
+			return "Core File";
+		default:
+			return "Not Implemented"; 
+	}
+	return NULL;
+}
+
+char *str_eidata(char ei_data){
+	switch(ei_data){
+		case ELFDATA2LSB:
+			return "2's complement, little endian";
+		default:
+			return "2's complement, big endian";
+	}
+	return NULL;
+}
+
+char *str_emachine(unsigned short e_machine){
+	switch(e_machine){
+		case EM_386:
+			return "Intel 80386";
+		case EM_MIPS:
+			return "MIPS R3000 Big-Endian";
+		case EM_MIPS_RS3_LE:
+			return "MIPS R3000 Little-Endian";
+		case EM_ARM:
+			return "ARM";
+		case EM_X86_64:
+			return "AMD x86-64";
+		case EM_AARCH64:
+			return "ARM AARCH64";
+		case EM_RISCV:
+			return "RISC-V";
+		default:
+			return "Not Implemented";
+	}
+	return NULL;
+}
+
 char *str_ptype(uint32_t type){
 	switch(type){
 		case PT_NULL:
@@ -432,7 +480,10 @@ void print_elf_hdr(ELF *elf){
 				printf("ELF32\n");
 				break; 
 		}
+		printf(" Data:                     %s\n", str_eidata(elf->hdr->e_ident[5]));
 		printf(" ABI:                      %s\n", str_abi(elf->hdr->e_ident[7]));
+		printf(" Type:                     %s\n", str_etype(elf->hdr->e_type));
+		printf(" Machine:                  %s\n", str_emachine(elf->hdr->e_machine));
 		printf(" Version:                  0x%02x\n", elf->hdr->e_version);
 		printf(" Entry point:              0x%0lx\n", elf->hdr->e_entry);
 		printf(" Start of program headers: %lu (Bytes into file)\n", elf->hdr->e_phoff);
