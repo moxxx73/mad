@@ -1,14 +1,12 @@
 MAD - Multi-Architecture Disassembler/Debugger
 ------------------------------------------------
 this project is very early in development and you may ask why am i doing it?
-Because i read "Build your own fucking birdfeeder" from "POC||GTFO" and 
-finally decided to finally persue building my own tools so yh. 
-(also cannot recommend the book enough)
+Because im building my own fucking birdfeeder
 
-# Building
+Need help using the tool? just use the "?" command for help and
+yh its basically the radare2 syntax, the idea of if-else'ing
+the return value of multiple calls to strncmp() just really irked me
 
-for now u can just build madd with:
-  gcc mad.c util.c pool.c cli.c madELF.c cmds.c -Wall -Wextra -o ../mad
 
 Most Recent Update
 -------------------
@@ -17,3 +15,8 @@ Most Recent Update
 
 Next i will implement all features for the elf command (e[?]) and once this is
 done work on disassembly will begin.
+
+Note
+-----
+who/what tf is cloning my shit dude? also im very tired so update work will
+begin when i wakeup
